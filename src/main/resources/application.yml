@@ -1,6 +1,10 @@
 spring:
   application:
     name: secureventure
+  sql:
+    init:
+      mode: always
+      continue-on-error: true
 logging:
   level:
     ROOT: INFO
