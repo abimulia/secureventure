@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: secureventure
+logging:
+  level:
+    ROOT: INFO
+    org.hibernate: INFO
+    com.abimulia.secureventure: DEBUG
