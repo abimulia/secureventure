@@ -7,6 +7,6 @@ spring:
       continue-on-error: true
 logging:
   level:
-    ROOT: DEBUG
+    ROOT: ERROR
     org.hibernate: DEBUG
     com.abimulia.secureventure: DEBUG

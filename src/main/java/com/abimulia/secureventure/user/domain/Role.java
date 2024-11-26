@@ -3,20 +3,22 @@
  */
 package com.abimulia.secureventure.user.domain;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-
 /**
  * 
+ * @author abimu
+ *
+ * @version 1.0 (26-Nov-2024)
+ * @since 26-Nov-2024 2:06:11 PM
+ * 
+ * 
+ *        Copyright(c) 2024 Abi Mulia
  */
 @Data
 @SuperBuilder

@@ -10,7 +10,7 @@ import com.abimulia.secureventure.user.dto.UserDTO;
  * 
  */
 public interface UserService {
-	
+
 	UserDTO createUser(User user);
 
 }

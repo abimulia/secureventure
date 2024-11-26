@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.abimulia.secureventure.user.domain;
+package com.abimulia.secureventure.domain;
 
 import java.util.Map;
 
@@ -19,11 +19,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class HttpResponse {
-	protected String kodeWaktu;
+	protected String timeStamps;
 	protected int statusCode;
 	protected HttpStatus status;
 	protected String reason;
 	protected String message;
 	protected String developerMessage;
-	protected Map<?,?> data;
+	protected Map<?, ?> data;
 }
