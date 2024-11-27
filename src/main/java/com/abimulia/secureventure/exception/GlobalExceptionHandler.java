@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<HttpResponse> handleAllExceptions(Exception ex) {
 		HttpResponse errorResponse = HttpResponse.builder().timeStamps(LocalDateTime.now().toString())
 				.status(HttpStatus.INTERNAL_SERVER_ERROR).statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-				.message(ex.getMessage()).developerMessage(ex.getStackTrace().toString()).build();
+				.message("Oops...I dit it again, let me fix it. Please try again").developerMessage(ex.getMessage().toString()).build();
 		return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -48,8 +48,8 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<HttpResponse> handleApiException(ApiException ex) {
 		HttpResponse errorResponse = HttpResponse.builder().timeStamps(LocalDateTime.now().toString())
-				.status(HttpStatus.CONFLICT).statusCode(HttpStatus.CONFLICT.value()).message(ex.getMessage())
-				.developerMessage(ex.getStackTrace().toString()).build();
+				.status(HttpStatus.CONFLICT).statusCode(HttpStatus.CONFLICT.value()).message("Oops.. let's try again")
+				.developerMessage(ex.getMessage()).build();
 		return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
 	}
 

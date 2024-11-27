@@ -40,17 +40,20 @@ public class EventRepositoryImpl implements EventRepository {
 
 	@Override
 	public Collection<UserEvent> getEventsByUserId(Long userId) {
-		return jdbc.query(SELECT_EVENTS_BY_USER_ID_QUERY, of("id", userId), new UserEventRowMapper());
+		log.debug("getEventsByUserId() userId: " + userId);
+		return jdbc.query(SELECT_EVENTS_BY_USER_ID_QUERY, of("userId", userId), new UserEventRowMapper());
 	}
 
 	@Override
 	public void addUserEvent(String email, EventType eventType, String device, String ipAddress) {
+		log.debug("addUserEvent() email: " + email + " eventType: " + eventType + " device: " + device + " ipAddress: "+ipAddress);
 		jdbc.update(INSERT_EVENT_BY_USER_EMAIL_QUERY, of("email", email, "type", eventType.toString(), "device", device, "ipAddress", ipAddress));
 	}
 
 	@Override
 	public void addUserEvent(Long userId, EventType eventType, String device, String ipAddress) {
-		jdbc.update(INSERT_EVENT_BY_USER_ID_QUERY, of("id", userId, "type", eventType.toString(), "device", device, "ipAddress", ipAddress));// TODO Auto-generated method stub
+		log.debug("addUserEvent() userId: " + userId + " eventType: " + eventType + " device: " + device + " ipAddress: "+ipAddress);
+		jdbc.update(INSERT_EVENT_BY_USER_ID_QUERY, of("userId", userId, "type", eventType.toString(), "device", device, "ipAddress", ipAddress));
 	}
 
 }

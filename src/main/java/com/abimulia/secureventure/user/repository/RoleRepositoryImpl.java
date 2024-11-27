@@ -40,12 +40,12 @@ public class RoleRepositoryImpl implements RoleRepository<Role> {
 
 	@Override
 	public Collection<Role> list() {
-		log.info("Fetching all roles");
+		log.debug("list() fetching all roles");
 		try {
 			return jdbc.query(SELECT_ROLES_QUERY, new RoleRowMapper());
 		} catch (Exception exception) {
-			log.error(exception.getMessage());
-			throw new ApiException("An error occurred. Please try again.");
+			log.error("Failed to get the list of roles. "+exception.getMessage());
+			throw new ApiException("Failed to get the list of roles.",exception);
 		}
 	}
 
@@ -79,40 +79,41 @@ public class RoleRepositoryImpl implements RoleRepository<Role> {
 			log.info("Role {} added to user id: {}", roleName, userId);
 		} catch (Exception e) {
 			log.error("Error adding role to user, " + e.getMessage());
-			throw new ApiException("Oops ... " + e.getMessage(),e);
+			throw new ApiException("Oops... failed adding role to the user: "+ userId+" roleName: "+ roleName,e);
 		}
 
 	}
 
 	@Override
 	public Role getRoleByUserId(Long userId) {
-		log.info("Fetching role for user id: {}", userId);
+		log.info("getRoleByUserId() user id: "+ userId);
 		try {
-			return jdbc.queryForObject(SELECT_ROLE_BY_ID_QUERY, of("id", userId), new RoleRowMapper());
+			return jdbc.queryForObject(SELECT_ROLE_BY_ID_QUERY, of("userId", userId), new RoleRowMapper());
 		} catch (EmptyResultDataAccessException exception) {
 			throw new ApiException("No role found for user id: " + userId,exception);
 		} catch (Exception exception) {
 			log.error(exception.getMessage());
-			throw new ApiException("An error occurred. Please try again, "+exception.getMessage(),exception);
+			throw new ApiException("Failed to get role for userId: "+ userId,exception);
 		}
 	}
 
 	@Override
 	public Role getRoleByUserEmail(String email) {
-		log.info("Fetching role for user with email: {}", email);
+		log.info("getRoleByUserEmail() with email: "+ email);
 		try {
 			return jdbc.queryForObject(SELECT_ROLE_BY_EMAIL_QUERY, of("email", email), new RoleRowMapper());
 		} catch (EmptyResultDataAccessException exception) {
 			throw new ApiException("No role found for user with email: " + email,exception);
 		} catch (Exception exception) {
 			log.error(exception.getMessage());
-			throw new ApiException("An error occurred. Please try again, "+exception.getMessage(),exception);
+			throw new ApiException("Failed to get role for user "+email,exception);
 		}
 	}
 
 	@Override
 	public void updateUserRole(Long userId, String roleName) {
-		log.info("Updating role for user id: {}", userId);
+		log.info("updateUserRole() "
+				+ "user id: "+userId+" roleName: "+roleName);
 		try {
 			Role role = jdbc.queryForObject(SELECT_ROLE_BY_NAME_QUERY, of("name", roleName), new RoleRowMapper());
 			jdbc.update(UPDATE_USER_ROLE_QUERY, of("roleId", role.getId(), "userId", userId));
@@ -120,7 +121,7 @@ public class RoleRepositoryImpl implements RoleRepository<Role> {
 			throw new ApiException("No role found by name: " + roleName,exception);
 		} catch (Exception exception) {
 			log.error(exception.getMessage());
-			throw new ApiException("Oops ... " + exception.getMessage(),exception);
+			throw new ApiException("Oops.. failed to update role: "+roleName+" to userId: "+ userId,exception);
 		}
 
 	}

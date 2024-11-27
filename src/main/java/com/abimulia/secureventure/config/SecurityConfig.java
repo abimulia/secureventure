@@ -4,12 +4,12 @@
 package com.abimulia.secureventure.config;
 
 import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -20,8 +20,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 import com.abimulia.secureventure.filter.CustomAuthorizationFilter;
 import com.abimulia.secureventure.handler.CustomAccessDeniedHandler;
@@ -78,6 +76,7 @@ public class SecurityConfig{
 		httpSecurity.sessionManagement().sessionCreationPolicy(STATELESS);
 		httpSecurity.authorizeHttpRequests().requestMatchers(PUBLIC_URLS).permitAll();
 		httpSecurity.authorizeHttpRequests().requestMatchers(OPTIONS).permitAll(); // Not needed
+		httpSecurity.authorizeHttpRequests().requestMatchers(GET, "/user/profile/**").hasAnyAuthority("READ:USER");
 		httpSecurity.authorizeHttpRequests().requestMatchers(DELETE, "/user/delete/**").hasAnyAuthority("DELETE:USER");
 		httpSecurity.authorizeHttpRequests().requestMatchers(DELETE, "/customer/delete/**").hasAnyAuthority("DELETE:CUSTOMER");
 		httpSecurity.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler).authenticationEntryPoint(customAuthenticationEntryPoint);

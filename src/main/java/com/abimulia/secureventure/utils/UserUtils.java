@@ -19,6 +19,7 @@ import com.abimulia.secureventure.user.dto.UserDTO;
  * 
  *        Copyright(c) 2024 Abi Mulia
  */
+
 public class UserUtils {
 	public static UserDTO getAuthenticatedUser(Authentication authentication) {
 		return ((UserDTO) authentication.getPrincipal());

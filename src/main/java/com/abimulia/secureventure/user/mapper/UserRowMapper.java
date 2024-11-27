@@ -31,7 +31,7 @@ public class UserRowMapper implements RowMapper<User> {
 				.phone(resultSet.getString("phone")).title(resultSet.getString("title")).bio(resultSet.getString("bio"))
 				.imageUrl(resultSet.getString("image_url")).enabled(resultSet.getBoolean("enabled"))
 				.isUsingMfa(resultSet.getBoolean("using_mfa")).isNotLocked(resultSet.getBoolean("non_locked"))
-				.createdDate(resultSet.getTimestamp("created_at").toLocalDateTime()).build();
+				.createdDate(resultSet.getTimestamp("created_date").toLocalDateTime()).build();
 	}
 
 }

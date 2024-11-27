@@ -44,7 +44,7 @@ COLLATE=utf8mb4_0900_ai_ci;
 DROP TABLE IF EXISTS UserRoles;
 
 CREATE TABLE UserRoles (
-	user_role_id BIGINT unsigned auto_increment NOT NULL PRIMARY KEY,
+	userrole_id BIGINT unsigned auto_increment NOT NULL PRIMARY KEY,
 	user_id BIGINT unsigned NOT NULL,
 	role_id BIGINT unsigned NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -59,9 +59,9 @@ DROP TABLE IF EXISTS Events;
 
 CREATE TABLE Events (
 	event_id BIGINT unsigned auto_increment NOT NULL PRIMARY KEY COMMENT 'Event ID',
-	event_type varchar(50) NOT NULL COMMENT 'Type',
+	type        VARCHAR(255) NOT NULL CHECK(type IN ('LOGIN_ATTEMPT', 'LOGIN_ATTEMPT_FAILURE', 'LOGIN_ATTEMPT_SUCCESS', 'PROFILE_UPDATE', 'PROFILE_PICTURE_UPDATE', 'ROLE_UPDATE', 'ACCOUNT_SETTINGS_UPDATE', 'PASSWORD_UPDATE', 'MFA_UPDATE')),
 	description varchar(255) NOT NULL COMMENT "Description",
-	CONSTRAINT Events_UNIQUE UNIQUE KEY (event_type)
+	CONSTRAINT Events_UNIQUE UNIQUE KEY (type)
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -70,7 +70,7 @@ COLLATE=utf8mb4_0900_ai_ci;
 DROP TABLE IF EXISTS UserEvents;
 
 CREATE TABLE UserEvents (
-	user_event_id BIGINT unsigned auto_increment NOT NULL PRIMARY KEY,
+	userevent_id BIGINT unsigned auto_increment NOT NULL PRIMARY KEY,
 	user_id BIGINT unsigned NOT NULL,
 	event_id BIGINT unsigned NOT NULL,
 	device varchar(100) DEFAULT NULL,
@@ -136,4 +136,15 @@ VALUES('ROLE_USER','READ:USER,READ:CUSTOMER'),
       ('ROLE_MANAGER','READ:USER,READ:CUSTOMER,UPDATE:USER,UPDATE:CUSTOMER'),
       ('ROLE_ADMIN','READ:USER,READ:CUSTOMER,CREATE:USER,CREATE:CUSTOMER,UPDATE:USER,UPDATE:CUSTOMER'),
       ('ROLE_SYSADMIN','READ:USER,READ:CUSTOMER,CREATE:USER,CREATE:CUSTOMER,UPDATE:USER,UPDATE:CUSTOMER,DELETE:USER,DELETE:CUSTOMER');
+
+INSERT INTO Events(`type`, description)
+VALUES ('LOGIN_ATTEMPT', 'You tried to log in'),
+       ('LOGIN_ATTEMPT_FAILURE', 'You tried to log in and you failed'),
+	   ('LOGIN_ATTEMPT_SUCCESS', 'You tried to log in and you succeeded'),
+	   ('PROFILE_UPDATE', 'You updated your profile information'),
+	   ('PROFILE_PICTURE_UPDATE', 'You updated your profile picture'),
+	   ('ROLE_UPDATE', 'You updated your role and permissions'),
+	   ('ACCOUNT_SETTINGS_UPDATE', 'You updated your account settings'),
+	   ('MFA_UPDATE', 'You updated your MFA settings'),
+	   ('PASSWORD_UPDATE', 'You updated your password'); 
 
