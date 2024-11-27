@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<HttpResponse> handleAllExceptions(Exception ex) {
 		HttpResponse errorResponse = HttpResponse.builder().timeStamps(LocalDateTime.now().toString())
 				.status(HttpStatus.INTERNAL_SERVER_ERROR).statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-				.message("An error occurred").developerMessage(ex.getMessage()).build();
+				.message(ex.getMessage()).developerMessage(ex.getStackTrace().toString()).build();
 		return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<HttpResponse> handleUserAlreadyExists(UserAlreadyExistsException ex) {
 		HttpResponse errorResponse = HttpResponse.builder().timeStamps(LocalDateTime.now().toString())
 				.status(HttpStatus.CONFLICT).statusCode(HttpStatus.CONFLICT.value()).message("User already exist")
-				.developerMessage(ex.getMessage()).build();
+				.developerMessage("Trace: "+ex.getStackTrace()).build();
 		return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
 	}
 
@@ -48,8 +48,8 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<HttpResponse> handleApiException(ApiException ex) {
 		HttpResponse errorResponse = HttpResponse.builder().timeStamps(LocalDateTime.now().toString())
-				.status(HttpStatus.CONFLICT).statusCode(HttpStatus.CONFLICT.value()).message("Failed fetching data")
-				.developerMessage(ex.getMessage()).build();
+				.status(HttpStatus.CONFLICT).statusCode(HttpStatus.CONFLICT.value()).message(ex.getMessage())
+				.developerMessage(ex.getStackTrace().toString()).build();
 		return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
 	}
 

@@ -5,7 +5,6 @@ package com.abimulia.secureventure.user.dto;
 
 import java.time.LocalDateTime;
 
-
 import lombok.Data;
 
 /**
@@ -27,5 +26,7 @@ public class UserDTO {
 	private boolean isUsingMfa;
 	private LocalDateTime createdDate;
 	private LocalDateTime updateDate;
+	private String roleName;
+	private String permissions;
 
 }

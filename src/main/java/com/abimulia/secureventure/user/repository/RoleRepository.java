@@ -14,7 +14,7 @@ public interface RoleRepository<T extends Role> {
 //	Basic CRUD Operations
 	T create(T data);
 
-	Collection<T> list(int page, int pageSize);
+	Collection<T> list();
 
 	T get(long id);
 

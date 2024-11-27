@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.abimulia.secureventure.enums;
+package com.abimulia.secureventure.user.enums;
 
 /**
  * 

@@ -4,3 +4,5 @@ spring:
 application:
   title: secureventure
   version: 1.0.0
+jwt:
+  secret: '[a-zA-Z0-9._]^+$Guidelines89797987forAlphabeticalArraNumeralsandOtherSymbo$'
