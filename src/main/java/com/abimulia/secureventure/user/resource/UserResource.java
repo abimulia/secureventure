@@ -91,8 +91,12 @@ public class UserResource {
 		log.debug("saveUser()" + user);
 		UserDTO userDTO = userService.createUser(user);
 		return ResponseEntity.created(getUri())
-				.body(HttpResponse.builder().timeStamps(LocalDateTime.now().toString()).message("User created")
-						.status(HttpStatus.CREATED).statusCode(HttpStatus.CREATED.value()).data(of("user", userDTO))
+				.body(HttpResponse.builder().
+						timeStamps(LocalDateTime.now().toString())
+						.message("User created")
+						.status(HttpStatus.CREATED)
+						.statusCode(HttpStatus.CREATED.value())
+						.data(of("user", userDTO))
 						.build());
 	}
 

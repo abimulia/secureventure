@@ -44,6 +44,5 @@ public class SqlQuery {
 	public static final String SELECT_EVENTS_BY_USER_ID_QUERY = "SELECT uev.userevent_id, uev.device, uev.ip_address, ev.type, ev.description, uev.created_date FROM Events ev JOIN UserEvents uev ON ev.event_id = uev.event_id JOIN Users u ON u.user_id = uev.user_id WHERE u.user_id = :userId ORDER BY uev.created_date DESC LIMIT 10";
     public static final String INSERT_EVENT_BY_USER_EMAIL_QUERY = "INSERT INTO UserEvents (user_id, event_id, device, ip_address) VALUES ((SELECT user_id FROM Users WHERE email = :email), (SELECT event_id FROM Events WHERE type = :type), :device, :ipAddress)";
     public static final String INSERT_EVENT_BY_USER_ID_QUERY = "INSERT INTO UserEvents (user_id, event_id, device, ip_address) VALUES ((SELECT user_id FROM Users WHERE user_id = :userId), (SELECT event_id FROM Events WHERE type = :type), :device, :ipAddress)";
-	
-
+    
 }

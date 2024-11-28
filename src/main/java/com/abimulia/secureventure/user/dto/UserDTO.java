@@ -9,6 +9,13 @@ import lombok.Data;
 
 /**
  * 
+ * @author abimu
+ *
+ * @version 1.0 (28-Nov-2024)
+ * @since 28-Nov-2024 9:35:24 AM
+ * 
+ * 
+ *        Copyright(c) 2024 Abi Mulia
  */
 @Data
 public class UserDTO {

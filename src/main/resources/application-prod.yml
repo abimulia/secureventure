@@ -7,6 +7,6 @@ spring:
       continue-on-error: true
 logging:
   level:
-    ROOT: INFO
-    org.hibernate: INFO
+    ROOT: ERROR
+    org.hibernate: ERROR
     com.abimulia.secureventure: INFO
