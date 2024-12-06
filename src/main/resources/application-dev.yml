@@ -19,5 +19,12 @@ spring:
 logging:
   level:
     ROOT: ERROR
-    org.hibernate: DEBUG
+    org.hibernate: ERROR
     com.abimulia.secureventure: DEBUG
+  mail:
+    host: smtp.mailersend.net
+    port: 587
+    username: MS_tf4eZZ@trial-3z0vklo96y7l7qrx.mlsender.net
+    password: knpgQP4rzzGUSw0y
+    smtp.auth: true
+    smtp.starttls.enable: true

@@ -1,14 +1,14 @@
 package com.abimulia.secureventure;
 
-import java.beans.BeanProperty;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -49,5 +49,24 @@ public class SecureventureApplication {
 		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 		return new CorsFilter(urlBasedCorsConfigurationSource);
 	}
+	
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	    mailSender.setHost("smtp.mailersend.net");
+	    mailSender.setPort(587);
+	    
+	    mailSender.setUsername("MS_tf4eZZ@trial-3z0vklo96y7l7qrx.mlsender.net");
+	    mailSender.setPassword("knpgQP4rzzGUSw0y");
+	    
+	    Properties props = mailSender.getJavaMailProperties();
+	    props.put("mail.transport.protocol", "smtp");
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.smtp.starttls.enable", "true");
+	    props.put("mail.debug", "true");
+	    
+	    return mailSender;
+	}
+
 
 }

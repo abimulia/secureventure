@@ -71,6 +71,7 @@ import com.abimulia.secureventure.user.domain.Role;
 import com.abimulia.secureventure.user.domain.User;
 import com.abimulia.secureventure.user.dto.UserDTO;
 import com.abimulia.secureventure.user.mapper.UserRowMapper;
+import com.abimulia.secureventure.utils.EmailUtils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -93,6 +94,7 @@ public class UserRepositoryImpl implements UserRepository<User>,UserDetailsServi
 	private final NamedParameterJdbcTemplate jdbc;
 	private final RoleRepository<Role> roleRepository;
 	private final BCryptPasswordEncoder encoder;
+	private final EmailUtils emailUtils;
 
 	@Override
 	public User create(User user) {
@@ -107,7 +109,7 @@ public class UserRepositoryImpl implements UserRepository<User>,UserDetailsServi
 			roleRepository.addRoleToUser(user.getId(),ROLE_USER.name());
 			String verificationUrl = getVerificationUrl(UUID.randomUUID().toString(),ACCOUNT.getType());
 			jdbc.update(INSERT_ACCOUNT_VERIFICATION_URL_QUERY, Map.of("userId", user.getId(), "url", verificationUrl));
-//			emailService.sendVerificationUrl(user.getFirstName(),user.getEmail(),verificationUrl, ACCOUNT);
+			emailUtils.sendVerificationUrl(user.getFirstName(),user.getEmail(),verificationUrl, ACCOUNT.getType());
 			user.setEnabled(false);
 			user.setNotLocked(true);
 			log.info( "User {} created with role {} ",user.getFirstName(),ROLE_USER.name());
@@ -117,7 +119,7 @@ public class UserRepositoryImpl implements UserRepository<User>,UserDetailsServi
 			throw new ApiException(ROLE_USER.name()+ " Role not exists.",emptyException);
 		} 
 		catch (Exception e) {
-			log.error("Error creating user, " + e.getMessage());
+			log.error("Error creating user, ",e);
 			throw new ApiException("Oops ... ",e);
 		}
 	}

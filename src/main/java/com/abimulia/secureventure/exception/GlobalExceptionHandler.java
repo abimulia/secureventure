@@ -49,7 +49,8 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<HttpResponse> handleAllExceptions(Exception ex) {
 		log.debug(ex.getMessage());
-		HttpResponse errorResponse = HttpResponse.builder().timeStamps(now().toString())
+		HttpResponse errorResponse = HttpResponse.builder()
+				.timeStamps(now().toString())
 				.message("Oops...I dit it again, let me fix it. Please try again").reason(ex.getMessage())
 				.developerMessage(getStackTraceString(ex)).status(INTERNAL_SERVER_ERROR)
 				.statusCode(INTERNAL_SERVER_ERROR.value()).build();
